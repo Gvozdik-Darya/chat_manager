@@ -1,13 +1,20 @@
-const { checkDate } = require("../utils/dateUtils");
+const { checkDate, getEndOfSupportDate } = require("../utils/dateUtils");
 
 function getType(row, curator) {
   const types = {
-    Углубленный: "Углубленный",
-    Менторство: "Менторство",
+    inDepth: "Углубленный",
+    mentoring: "Менторство",
   };
-  return (
-    Object.keys(types).find((type) => row[0].includes(type)) || "Менторство"
-  );
+  const foundElements = row[0].split("\n").filter((el) => el.includes(curator));
+
+  if (foundElements.length > 1) {
+    return `${types.inDepth} ${types.mentoring}`;
+  } else if (foundElements[0].includes(types.inDepth)) {
+    return types.inDepth;
+  } else if (foundElements[0].includes(types.mentoring)) {
+    return types.mentoring;
+  }
+  // const result = foundElements.length > 1 ? types.inDepth : types.mentoring;
 }
 
 function getFlow(row) {
@@ -15,11 +22,13 @@ function getFlow(row) {
 }
 
 function generateChat(row, curator) {
+  const date = row[row.length - 2];
   return {
     curator,
     flow: getFlow(row),
     type: getType(row, curator),
-    isActiveChat: checkDate(row[row.length - 2]),
+    isActiveChat: checkDate(date),
+    endOfSupportDate: getEndOfSupportDate(date),
   };
 }
 

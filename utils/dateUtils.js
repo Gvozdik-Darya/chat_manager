@@ -9,6 +9,11 @@ function excelDateToJSDate(serial) {
   return new Date(excelEpoch.getTime() + serial * 86400000);
 }
 
+function getEndOfSupportDate(serial) {
+  const date = excelDateToJSDate(serial);
+  return `${date.getDate()} ${date.getMonth() + 1} ${date.getFullYear()}`;
+}
+
 function checkDate(serial) {
   const date = excelDateToJSDate(serial);
   const today = new Date();
@@ -17,7 +22,6 @@ function checkDate(serial) {
     today.getMonth(),
     today.getDate()
   );
-
   const utcDate = new Date(
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
   );
@@ -33,9 +37,16 @@ function checkDate(serial) {
     return statusChat.closed;
   } else if (utcDate.getTime() === utcTodayStart.getTime()) {
     return statusChat.lastDay;
-  } else {
+  } else if (utcDate > utcTodayStart) {
     return statusChat.active;
+  } else {
+    return "Invalid date";
   }
 }
 
-module.exports = { excelDateToJSDate, checkDate, statusChat };
+module.exports = {
+  excelDateToJSDate,
+  checkDate,
+  statusChat,
+  getEndOfSupportDate,
+};

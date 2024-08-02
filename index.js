@@ -23,14 +23,15 @@ const mainData = readExcel(workbook, teamLeadsAndCuratorsDayOff);
 
 const columnsData = convertRowsToColumns(mainData);
 const foundColumn = findData(columnsData, curator);
+
 foundColumn.shift();
 
 const chatsFromSchedule = myChats(dataFromSchedule, foundColumn);
 const chatsFromNewSchedule = myChats(dataFromNewSchedule, foundColumn);
-
 const allChats = chatsFromSchedule.concat(chatsFromNewSchedule).flat();
 const activeChats = allChats.filter(
   (chat) => chat.isActiveChat !== statusChat.closed
 );
 
 console.log(activeChats);
+console.log(activeChats.length);
