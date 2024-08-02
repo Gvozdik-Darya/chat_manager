@@ -33,11 +33,11 @@ function checkDate(serial) {
     )
   );
 
-  if (utcDate < utcTodayStart) {
+  if (utcDate.getTime() < utcTodayStart.getTime()) {
     return statusChat.closed;
   } else if (utcDate.getTime() === utcTodayStart.getTime()) {
     return statusChat.lastDay;
-  } else if (utcDate > utcTodayStart) {
+  } else if (utcDate.getTime() > utcTodayStart.getTime()) {
     return statusChat.active;
   } else {
     return "Invalid date";

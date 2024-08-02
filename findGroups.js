@@ -9,7 +9,7 @@ const phone = process.env.MY_NUMBER;
 const session = process.env.SESSION;
 
 const stringSession = new StringSession(session);
-(async () => {
+async function getMyGroupTitles() {
   const client = new TelegramClient(stringSession, api_id, api_hash, {
     connectionRetries: 5,
   });
@@ -31,7 +31,9 @@ const stringSession = new StringSession(session);
     .map((chat) => chat.title)
     .filter((el) => el.includes("Поток"));
 
-  console.log(groupTitles);
-
-  //   await client.disconnect();
-})();
+  await client.disconnect();
+  return groupTitles;
+}
+module.exports = {
+  getMyGroupTitles,
+};
