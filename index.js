@@ -22,6 +22,7 @@ const teamLeadsAndCuratorsDayOff = sheetNames[5];
 const dataFromSchedule = readExcel(workbook, schedule);
 const dataFromNewSchedule = readExcel(workbook, newSchedule);
 const mainData = readExcel(workbook, teamLeadsAndCuratorsDayOff);
+console.log(mainData);
 
 const columnsData = convertRowsToColumns(mainData);
 const foundColumn = findData(columnsData, curator);
@@ -34,6 +35,7 @@ const allChats = chatsFromSchedule.concat(chatsFromNewSchedule).flat();
 const activeChats = allChats.filter(
   (chat) => chat.isActiveChat !== statusChat.closed
 );
+// console.log(activeChats);
 
 (async () => {
   try {
@@ -87,5 +89,5 @@ const activeChats = allChats.filter(
   }
 })();
 
-// console.log(activeChats);
-// console.log(activeChats.length);
+console.log(activeChats);
+console.log(activeChats.length);

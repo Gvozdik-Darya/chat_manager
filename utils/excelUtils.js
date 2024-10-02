@@ -13,6 +13,8 @@ function readExcel(workbook, sheetName) {
 
 function convertRowsToColumns(data) {
   let columns = Array.from({ length: data[0].length }, () => []);
+  // // console.log(columns);
+
   data.forEach((array) => {
     array.forEach((item, i) => {
       columns[i].push(item);

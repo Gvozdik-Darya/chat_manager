@@ -10,7 +10,7 @@ const session = process.env.SESSION;
 
 const stringSession = new StringSession(session);
 async function getMyGroupTitles() {
-  const client = new TelegramClient(stringSession, api_id, api_hash, {
+  const client = new TelegramClient(stringSession, 23626379, api_hash, {
     connectionRetries: 5,
   });
   await client.start({
@@ -21,7 +21,10 @@ async function getMyGroupTitles() {
     onError: (err) => console.log(err),
   });
 
-  //   console.log("Вы успешно вошли в систему.");
+  console.log("Вы успешно вошли в систему.");
+
+  // Сохранение сессионного кода
+  console.log("Ваш сессионный код: ", client.session.save());
 
   const result = await client.getDialogs({
     archived: false,

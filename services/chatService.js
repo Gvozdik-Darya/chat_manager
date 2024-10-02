@@ -7,13 +7,17 @@ const types = {
 function getType(row, curator) {
   const foundElements = row[0].split("\n").filter((el) => el.includes(curator));
   const typesArray = [];
-  if (foundElements.length > 1) {
-    typesArray.push(types.inDepth, types.mentoring);
-  } else if (foundElements[0].includes(types.inDepth)) {
-    typesArray.push(types.inDepth);
-  } else if (foundElements[0].includes(types.mentoring)) {
-    typesArray.push(types.mentoring);
+  // console.log(foundElements.length);
+  if (foundElements.length > 0) {
+    if (foundElements.length > 1) {
+      typesArray.push(types.inDepth, types.mentoring);
+    } else if (foundElements[0].includes(types.inDepth)) {
+      typesArray.push(types.inDepth);
+    } else if (foundElements[0].includes(types.mentoring)) {
+      typesArray.push(types.mentoring);
+    }
   }
+
   return typesArray;
   // const result = foundElements.length > 1 ? types.inDepth : types.mentoring;
 }
